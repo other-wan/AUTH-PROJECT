@@ -1,0 +1,34 @@
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+                {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="card text-center">
+        <h1 class="card-header">Homepage</h1>
+        {% if request.user.is_authenticated %}
+            <div class="card-body">
+                <h5 class="card-title">You are logged in as {{request.user.email}}</h5>
+                <p class="card-text">You can log out and change password to your account</p>
+                <a href="{% url 'accounts:logout' %}" class="card-link">Log out</a> 
+                <a href="{% url 'accounts:password_change' %}" class="card-link">Change password</a>
+            </div>
+        {% else %}
+            <div class="card-body">
+                <h5 class="card-title">You are not logged in</h5>
+                <p class="card-text">You can log in or register to get started</p>
+                <a href="{% url 'accounts:login' %}" class="card-link">Log in</a> 
+                <a href="{% url 'accounts:register' %}" class="card-link">Register</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}

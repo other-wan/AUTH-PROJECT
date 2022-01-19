@@ -1,0 +1,20 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card text-center">
+        <h1 class="card-header">Log out</h1>
+        {% if request.user.is_authenticated %}
+            <form action="" method="POST" class="card-body"> {% csrf_token %}
+                <span class="card-text lead d-block font-weight-bold text-muted">Are you sure you want to log out?</span>
+                <button type="submit" class=" card-link btn btn-primary mt-4">Log out</button>
+            </form>
+        {% else %}
+            <div class="card-body">
+                <span class="card-text lead d-block font-weight-bold text-muted">You are already logged out</span>
+                <span class="card-text lead d-block font-weight-bold text-muted">Would you like to log in?</span>
+                <a href="{% url 'accounts:login' %}" class="card-link btn btn-primary mt-4"> Login</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}

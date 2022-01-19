@@ -1,0 +1,32 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="px-4 py-4 border rounded" style="width: 360px;">
+        {% if not request.user.is_authenticated %}
+            <form action="" method="POST"> {% csrf_token %}
+                <div class="my-4">
+                    <h3>Welcome</h3>
+                    <span class="font-weight-normal text-muted font-weight-bold">Login to get started</span>
+                </div>
+                {{form|crispy}}
+                <button type="submit" class="btn btn-primary btn-block my-4">Log in</button>
+                <div>
+                    <span class="d-block my-2">Forgot password? 
+                        <a href="" class="font-weight-bold">Reset</a>
+                    </span>
+                    <span class="d-block my-2">Don't have an account? 
+                        <a href="{% url 'accounts:register' %}" class="font-weight-bold">Register</a>
+                    </span>
+                </div>
+            </form>
+        {% else %}
+            <div class="text-center">
+                <span class="lead d-block font-weight-bold text-muted">You are already logged in.</span>
+                <span class="lead d-block font-weight-bold text-muted mb-4">Would you like to log out?</span>
+                <a href="{% url 'accounts:logout' %}" class="btn btn-primary">Log out</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}
